@@ -1,4 +1,4 @@
-from mobile_device import MobileDevice
+from abstract_mobile_device import AbstractMobileDevice
 from repair_stats import RepairStats
 
 class RepairManager:
@@ -11,34 +11,34 @@ class RepairManager:
         self._repairs = []
 
 
-    def add_device(self, MobileDevice):
+    def add_device(self, AbstractMobileDevice):
         """ Adds a device """
-        if MobileDevice is None:
+        if AbstractMobileDevice is None:
             raise ValueError("Mobile device must be defined.")
 
-        for i in self._devices:
-            if i._serial_num == MobileDevice._serial_num:
+        for mobile_device in self._devices:
+            if mobile_device._serial_num == AbstractMobileDevice._serial_num:
                 return
 
-        self._devices.append(MobileDevice)
+        self._devices.append(AbstractMobileDevice)
 
 
     def remove_device(self, serial_num):
         """ Removes an device """
-        MobileDevice._validate_string_input(MobileDevice.SERIAL_NUM_LABEL, serial_num)
+        AbstractMobileDevice._validate_string_input(AbstractMobileDevice.SERIAL_NUM_LABEL, serial_num)
 
-        for i in self._devices:
-            if i.get_serial_num() == serial_num:
+        for mobile_device in self._devices:
+            if mobile_device.get_serial_num() == serial_num:
                 self._devices.remove(i)
                 return
 
 
     def get_device(self, serial_num):
         """ Gets an device given the serial number """
-        MobileDevice._validate_string_input(MobileDevice.SERIAL_NUM_LABEL, serial_num)
+        AbstractMobileDevice._validate_string_input(AbstractMobileDevice.SERIAL_NUM_LABEL, serial_num)
 
-        for i in self._devices:
-            if i.get_serial_num() == serial_num:
+        for mobile_device in self._devices:
+            if mobile_device.get_serial_num() == serial_num:
                 return i
 
         return None
@@ -46,10 +46,10 @@ class RepairManager:
 
     def device_exists(self, serial_num):
         """ Checks if an device exists """
-        MobileDevice._validate_string_input(MobileDevice.SEERIAL_NUM_LABEL, serial_num)
+        AbstractMobileDevice._validate_string_input(AbstractMobileDevice.SEERIAL_NUM_LABEL, serial_num)
 
-        for i in self._devices:
-            if i.get_serial_num() == serial_num:
+        for mobile_device in self._devices:
+            if mobile_device.get_serial_num() == serial_num:
                 return True
 
         return False
